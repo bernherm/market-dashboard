@@ -25,7 +25,7 @@ def fetch_json(url):
 def fetch_yahoo(symbol):
     url = (
         f"https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
-        f"?range=1y&interval=1d"
+        f"?range=5y&interval=1d"
     )
     data = fetch_json(url)
     result = data["chart"]["result"][0]
@@ -43,7 +43,7 @@ def fetch_yahoo(symbol):
 def fetch_fred(series_id):
     if not FRED_API_KEY:
         raise RuntimeError("FRED_API_KEY is not set")
-    start = (datetime.now(timezone.utc) - timedelta(days=400)).strftime("%Y-%m-%d")
+    start = (datetime.now(timezone.utc) - timedelta(days=5 * 365 + 60)).strftime("%Y-%m-%d")
     url = (
         "https://api.stlouisfed.org/fred/series/observations"
         f"?series_id={series_id}&api_key={FRED_API_KEY}&file_type=json"
